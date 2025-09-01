@@ -54,7 +54,7 @@ afterEvaluate {
 
                 groupId = "com.karthik.pro.engr.devtools"
                 artifactId = "preview"
-                version = "1.0.0"
+                version = "1.0.3"
 
                 pom {
                     name.set("All Variants Preview")
@@ -86,7 +86,7 @@ afterEvaluate {
                 url = uri("https://maven.pkg.github.com/karthik-pro-engr/all-variants-preview")
                 credentials {
                     username = findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                    password = findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+                    password = System.getenv("GPR_KEY")
                 }
             }
         }
