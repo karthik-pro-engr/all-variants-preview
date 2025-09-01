@@ -59,7 +59,7 @@ afterEvaluate {
                 pom {
                     name.set("All Variants Preview")
                     description.set("A Compose multi-preview annotation for orientations, UI modes and so.")
-                    url.set("https://github.com/YOUR_GH_USERNAME/YOUR_REPO")
+                    url.set("https://github.com/karthik-pro-engr/all-variants-preview")
                     licenses {
                         license {
                             name.set("Apache License 2.0")
@@ -69,13 +69,13 @@ afterEvaluate {
                     developers {
                         developer {
                             id.set("karthik.pro.engr")
-                            name.set("Karthik.pro.engr")
+                            name.set("Karthik Pro Engr")
                         }
                     }
                     scm {
-                        url.set("https://github.com/YOUR_GH_USERNAME/YOUR_REPO")
-                        connection.set("scm:git:https://github.com/YOUR_GH_USERNAME/YOUR_REPO.git")
-                        developerConnection.set("scm:git:ssh://github.com:YOUR_GH_USERNAME/YOUR_REPO.git")
+                        url.set("https://github.com/karthik-pro-engr/all-variants-preview")
+                        connection.set("scm:git:https://github.com/karthik-pro-engr/all-variants-preview.git")
+                        developerConnection.set("scm:git:ssh://github.com:karthik-pro-engr/all-variants-preview.git")
                     }
                 }
             }
@@ -83,7 +83,7 @@ afterEvaluate {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/YOUR_GH_USERNAME/YOUR_REPO")
+                url = uri("https://maven.pkg.github.com/karthik-pro-engr/all-variants-preview")
                 credentials {
                     username = findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
                     password = findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
