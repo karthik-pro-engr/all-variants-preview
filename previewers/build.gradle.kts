@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("maven-publish")
+    `maven-publish`
     signing
 
 }
@@ -54,7 +54,7 @@ afterEvaluate {
 
                 groupId = "com.karthik.pro.engr.devtools"
                 artifactId = "preview"
-                version = "1.0.3"
+                version = "1.0.4"
 
                 pom {
                     name.set("All Variants Preview")
@@ -94,13 +94,22 @@ afterEvaluate {
 }
 
 signing {
-    // Signing is optional for GitHub Packages, but we wire it for Maven Central later
-    val signingKey: String? = findProperty("signing.key") as String?
-    val signingPassword: String? = findProperty("signing.password") as String?
-    if (!signingKey.isNullOrBlank() && !signingPassword.isNullOrBlank()) {
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign(publishing.publications["release"])
+    val envSigningKey: String? = System.getenv("SIGNING_KEY")
+    val envSigningPassword: String? = System.getenv("SIGNING_PASSWORD")
+
+    val signingKey: String? = envSigningKey ?: (findProperty("signing.key") as String?).takeIf { !it.isNullOrBlank() }
+    val signingPassword: String? = envSigningPassword ?: (findProperty("signing.password") as String?).takeIf { !it.isNullOrBlank() }
+
+    signing {
+        if (!signingKey.isNullOrBlank() && !signingPassword.isNullOrBlank()) {
+            useInMemoryPgpKeys(signingKey, signingPassword)
+            sign(publishing.publications["release"])
+        } else {
+            // no-op in local dev if keys aren't provided (you can sign locally using gradle.properties)
+            logger.lifecycle("Signing keys not found in env or gradle.properties; skipping signing.")
+        }
     }
+
 }
 
 
