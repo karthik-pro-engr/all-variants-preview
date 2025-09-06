@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     `maven-publish`
     signing
-
 }
 
 android {
@@ -14,7 +13,6 @@ android {
 
     defaultConfig {
         minSdk = 25
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -28,16 +26,20 @@ android {
             )
         }
     }
-    // Ensure sources JAR for publishing later
+
+    // ✅ Ensure publishing component exists
     publishing {
         singleVariant("release") {
             withSourcesJar()
+            withJavadocJar()
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
@@ -50,11 +52,11 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-                from(components["release"])
+                from(components["release"]) // ✅ component is ready
 
-                groupId = "com.karthik.pro.engr.devtools"
+                groupId = "io.github.karthik_pro_engr.devtools"
                 artifactId = "preview"
-                version = "1.0.4"
+                version = "1.1.0"
 
                 pom {
                     name.set("All Variants Preview")
@@ -80,41 +82,39 @@ afterEvaluate {
                 }
             }
         }
+
         repositories {
             maven {
-                name = "GitHubPackages"
+                name = "CentralPortal"
+                url = uri("https://central.sonatype.com/api/v1/publish")
+                credentials {
+                    username = System.getenv("SONATYPE_USERNAME") ?: ""
+                    password = System.getenv("SONATYPE_PASSWORD") ?: ""
+                }
+                /*name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/karthik-pro-engr/all-variants-preview")
                 credentials {
                     username = findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
                     password = System.getenv("GPR_KEY")
-                }
+                }*/
             }
         }
     }
 }
-
-signing {
-    val envSigningKey: String? = System.getenv("SIGNING_KEY")
-    val envSigningPassword: String? = System.getenv("SIGNING_PASSWORD")
-
-    val signingKey: String? = envSigningKey ?: (findProperty("signing.key") as String?).takeIf { !it.isNullOrBlank() }
-    val signingPassword: String? = envSigningPassword ?: (findProperty("signing.password") as String?).takeIf { !it.isNullOrBlank() }
-
+afterEvaluate {
     signing {
+        val signingKey = System.getenv("SIGNING_KEY")
+        val signingPassword = System.getenv("SIGNING_PASSWORD")
+
         if (!signingKey.isNullOrBlank() && !signingPassword.isNullOrBlank()) {
             useInMemoryPgpKeys(signingKey, signingPassword)
             sign(publishing.publications["release"])
         } else {
-            // no-op in local dev if keys aren't provided (you can sign locally using gradle.properties)
             logger.lifecycle("Signing keys not found in env or gradle.properties; skipping signing.")
         }
     }
-
 }
-
-
 dependencies {
-
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
@@ -122,8 +122,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.truth)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.espresso.core)
-
-
 
     // Compose BOM controls versions
     implementation(platform(libs.androidx.compose.bom))

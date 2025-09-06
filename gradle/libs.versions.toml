@@ -27,8 +27,8 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
-androidx-test-ext-junit = { group = "androidx.test", name = "ext", version.ref = "androidTestExtJunit" }
-androidx-test-ext-truth = { group = "androidx.test", name = "truth", version.ref = "androidTestExtTruth" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidTestExtJunit" }
+androidx-test-ext-truth = { group = "androidx.test.ext", name = "truth", version.ref = "androidTestExtTruth" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxTestEspresso" }
 # Compose core
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
