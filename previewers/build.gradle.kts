@@ -56,7 +56,7 @@ afterEvaluate {
 
                 groupId = "io.github.karthik_pro_engr.devtools"
                 artifactId = "preview"
-                version = "1.1.0"
+                version = "v0.1.0"
 
                 pom {
                     name.set("All Variants Preview")
