@@ -5,8 +5,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     `maven-publish`
     signing
-}
+    id("org.jetbrains.dokka") version "2.0.0"
 
+}
+group = "io.github.karthik-pro-engr"  // your groupId
+version = "0.1.0"              // your version
 android {
     namespace = "com.karthik.pro.engr.previewers"
     compileSdk = 36
@@ -52,11 +55,11 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-                from(components["release"]) // ✅ component is ready
+                from(components["release"])
 
-                groupId = "io.github.karthik_pro_engr.devtools"
+                groupId = project.group.toString()
                 artifactId = "preview"
-                version = "v0.1.0"
+                version = project.version.toString()
 
                 pom {
                     name.set("All Variants Preview")
