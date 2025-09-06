@@ -36,4 +36,4 @@ jobs:
           ./gradlew --version
 
           # Run Gradle tasks to publish
-          ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --stacktrace
+          ./gradlew publishReleasePublicationToCentralPortalRepository --no-daemon --stacktrace
