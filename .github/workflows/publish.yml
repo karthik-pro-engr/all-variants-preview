@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'v*'
+      - '[0-9]*'
 
 jobs:
   publish:
@@ -15,6 +15,7 @@ jobs:
       SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
       SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
       GPR_KEY: ${{ secrets.GPR_KEY }}  # optional, if publishing to GitHub Packages
+      GITHUB_ACTOR: ${{ github.actor }}
 
     steps:
       - name: Checkout source code
@@ -29,11 +30,25 @@ jobs:
       - name: Configure Gradle cache
         uses: gradle/gradle-build-action@v2
 
-      - name: Publish to Sonatype & GitHub Packages
+      - name: Check required secrets
+        run: |
+                test -n "${SIGNING_KEY}" || (echo "❌ SIGNING_KEY missing" && exit 1)
+                test -n "${SIGNING_PASSWORD}" || (echo "❌ SIGNING_PASSWORD missing" && exit 1)
+                test -n "${SONATYPE_USERNAME}" || (echo "❌ SONATYPE_USERNAME missing" && exit 1)
+                test -n "${SONATYPE_PASSWORD}" || (echo "❌ SONATYPE_PASSWORD missing" && exit 1)
+
+      - name: Verify Java & Gradle setup
         run: |
           # Verify Java and Gradle versions
           java -version
           ./gradlew --version
 
-          # Run Gradle tasks to publish
-          ./gradlew publishReleasePublicationToCentralPortalRepository --no-daemon --stacktrace
+      - name: Publish to Maven Central (and GitHub Packages if configured)
+        run: |
+          # Always publish to Maven Central
+          ./gradlew publishMavenPublicationToMavenCentralRepository --no-daemon --stacktrace
+
+          # Conditionally publish to GitHub Packages (only if GPR_KEY is set)
+          if [ -n "${GPR_KEY}" ]; then
+            ./gradlew publishMavenPublicationToGitHubPackagesRepository --no-daemon --stacktrace
+          fi

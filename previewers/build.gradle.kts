@@ -3,13 +3,15 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+
+    id("com.vanniktech.maven.publish") version "0.33.0"
     `maven-publish`
     signing
     id("org.jetbrains.dokka") version "2.0.0"
 
 }
 group = "io.github.karthik-pro-engr"  // your groupId
-version = "0.1.0"              // your version
+version = "0.2.0"              // your version
 android {
     namespace = "com.karthik.pro.engr.previewers"
     compileSdk = 36
@@ -31,12 +33,12 @@ android {
     }
 
     // ✅ Ensure publishing component exists
-    publishing {
+   /* publishing {
         singleVariant("release") {
             withSourcesJar()
             withJavadocJar()
         }
-    }
+    }*/
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -51,6 +53,7 @@ android {
 
 
 }
+/*
 afterEvaluate {
     publishing {
         publications {
@@ -94,17 +97,48 @@ afterEvaluate {
                     username = System.getenv("SONATYPE_USERNAME") ?: ""
                     password = System.getenv("SONATYPE_PASSWORD") ?: ""
                 }
-                /*name = "GitHubPackages"
+                */
+/*name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/karthik-pro-engr/all-variants-preview")
                 credentials {
                     username = findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
                     password = System.getenv("GPR_KEY")
-                }*/
+                }*//*
+
             }
         }
     }
 }
-afterEvaluate {
+*/
+mavenPublishing {
+    publishToMavenCentral(true)
+    signAllPublications()
+    coordinates("io.github.karthik-pro-engr", "preview", "0.2.0")
+    pom {
+        name.set("All Variants Preview")
+        description.set("A Compose multi-preview annotation for orientations, UI modes and so.")
+        url.set("https://github.com/karthik-pro-engr/all-variants-preview")
+        licenses {
+            license {
+                name.set("Apache License 2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0")
+            }
+        }
+        developers {
+            developer {
+                id.set("karthik.pro.engr")
+                name.set("Karthik Pro Engr")
+            }
+        }
+
+        scm {
+            url.set("https://github.com/karthik-pro-engr/all-variants-preview")
+            connection.set("scm:git:https://github.com/karthik-pro-engr/all-variants-preview.git")
+            developerConnection.set("scm:git:ssh://github.com:karthik-pro-engr/all-variants-preview.git")
+        }
+    }
+}
+/*afterEvaluate {
     signing {
         val signingKey = System.getenv("SIGNING_KEY")
         val signingPassword = System.getenv("SIGNING_PASSWORD")
@@ -116,7 +150,7 @@ afterEvaluate {
             logger.lifecycle("Signing keys not found in env or gradle.properties; skipping signing.")
         }
     }
-}
+}*/
 dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.junit.ktx)
