@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
 
-    id("com.vanniktech.maven.publish") version "0.33.0"
+    id("com.vanniktech.maven.publish") version "0.29.0"
     `maven-publish`
     signing
     id("org.jetbrains.dokka") version "2.0.0"
@@ -111,7 +111,7 @@ afterEvaluate {
 }
 */
 mavenPublishing {
-    publishToMavenCentral(true)
+    publishToMavenCentral("CENTRAL_PORTAL", true)
     signAllPublications()
     coordinates("io.github.karthik-pro-engr", "preview", "0.2.0")
     pom {

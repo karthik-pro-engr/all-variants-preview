@@ -46,7 +46,7 @@ jobs:
       - name: Publish to Maven Central (and GitHub Packages if configured)
         run: |
           # Always publish to Maven Central
-          ./gradlew publishAllPublicationsToMavenCentral --no-daemon --stacktrace
+          ./gradlew publishMavenPublicationToMavenCentralRepository --no-daemon --stacktrace
 
           # Conditionally publish to GitHub Packages (only if GPR_KEY is set)
           if [ -n "${GPR_KEY}" ]; then
