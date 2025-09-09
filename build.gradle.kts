@@ -4,9 +4,17 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.android.library) apply false
-    id("com.vanniktech.maven.publish") version "0.29.0" apply false
+    id("com.gradleup.nmcp.aggregation") version "1.1.0"
 }
+nmcpAggregation {
+    centralPortal {
+        username = System.getenv("SONATYPE_USERNAME")
+        password = System.getenv("SONATYPE_PASSWORD")
+        publishingType = "AUTOMATIC" // or "USER_MANAGED"
+    }
 
+    publishAllProjectsProbablyBreakingProjectIsolation()
+}
 
 
 subprojects {
