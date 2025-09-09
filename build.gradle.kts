@@ -5,19 +5,9 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.android.library) apply false
     id("com.vanniktech.maven.publish") version "0.33.0" apply false
-//    id("org.jetbrains.kotlinx.central-portal-publish") version "0.5.0"
-//    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
-/*nexusPublishing {
-    packageGroup.set("io.github.karthik-pro-engr")
-    repositories {
-        sonatype {
-            username = System.getenv("SONATYPE_USERNAME") ?: ""
-            password = System.getenv("SONATYPE_PASSWORD") ?: ""
-        }
-    }
-}*/
+
 
 subprojects {
     // Only configure signing if the module applies maven-publish
