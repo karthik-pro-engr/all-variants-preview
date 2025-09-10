@@ -1,4 +1,4 @@
-# All Variants Preview
+# 📦 All Variants Preview
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.github.karthik-pro-engr/preview)
 ![CI](https://github.com/karthik-pro-engr/all-variants-preview/actions/workflows/publish.yml/badge.svg)
@@ -25,12 +25,32 @@ Perfect for teams building scalable Compose UI libraries.
 
 ## 🚀 Installation
 
-This library is published to [Maven Central](https://central.sonatype.com/artifact/io.github.karthik-pro-engr/preview) and can be added directly to your project:
+This library is published to [Maven Central](https://central.sonatype.com/artifact/io.github.karthik-pro-engr/preview) and can be added directly to your project.
+
+### 🔧 Gradle Kotlin DSL
 
 ```kotlin
 dependencies {
     implementation("io.github.karthik-pro-engr:preview:0.3.0-rc1")
 }
+```
+
+### 📦 TOML (Version Catalog)
+
+In your `libs.versions.toml`:
+
+```toml
+[versions]
+preview = "0.3.0-rc1"
+
+[libraries]
+preview = { module = "io.github.karthik-pro-engr:preview", version.ref = "preview" }
+```
+
+Then in your module:
+
+```kotlin
+implementation(libs.preview)
 ```
 
 > ✅ Fully signed and verified via Sonatype Central Portal  
@@ -74,6 +94,22 @@ This annotation expands your preview to include:
 - 🧪 [CI/CD Workflow](https://github.com/karthik-pro-engr/all-variants-preview/actions)
 - 📜 [Changelog](https://github.com/karthik-pro-engr/all-variants-preview/blob/main/CHANGELOG.md)
 
+> ⚠️ If your `CHANGELOG.md` link shows a 404, make sure the file is committed to the `main` branch and pushed.  
+> You can verify it by browsing your repo manually or running `git log -- CHANGELOG.md`.
+
+---
+
+## 🤝 Support & Contributions
+
+I’m committed to maintaining this library with professional standards and OSS best practices.  
+If you face any issues, need help integrating, or want to contribute:
+
+- 🐞 [Open an issue](https://github.com/karthik-pro-engr/all-variants-preview/issues)
+- 💬 [Start a discussion](https://github.com/karthik-pro-engr/all-variants-preview/discussions)
+- 📩 Reach out via GitHub if you need guidance or clarification
+
+Your feedback is always welcome, and I’m happy to support developers using this library in real-world projects.
+
 ---
 
 ## 📄 License
@@ -89,7 +125,4 @@ Android Developer | OSS Publisher | CI/CD Architect
 [GitHub Profile](https://github.com/karthik-pro-engr)
 
 ---
-
 ```
-
-Let me know if you want to add a “How It’s Published” section to show off your automation pipeline or include a badge for release candidates. This README is ready to impress.
