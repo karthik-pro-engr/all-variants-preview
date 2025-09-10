@@ -1,9 +1,4 @@
-Absolutely, Karthikkumar — here’s your **final, polished `README.md`** with all enhancements integrated. It’s recruiter-ready, OSS-compliant, and showcases your automation mastery.
-
----
-
-```markdown
-# 📦 All Variants Preview
+# All Variants Preview
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.github.karthik-pro-engr/preview)
 ![CI](https://github.com/karthik-pro-engr/all-variants-preview/actions/workflows/publish.yml/badge.svg)
