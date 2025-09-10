@@ -11,7 +11,7 @@ plugins {
 
 }
 group = "io.github.karthik-pro-engr"  // your groupId
-version = "0.2.0"              // your version
+version = "0.3.0-rc1"              // your version
 android {
     namespace = "com.karthik.pro.engr.previewers"
     compileSdk = 36
